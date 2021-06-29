@@ -12,8 +12,9 @@ const loadData = async (config, binanceClient) => {
     const baseBalance = balances.free[base];
     logger.Info(`Balance: ${asset}:${assetBalance}; ${base}${baseBalance}`);
     const priceTicker = await binanceClient.fetchTicker(market);
-    logger.Info(`Best sell price of ${asset}: ${priceTicker.ask} in ${base}`);
-    const totalBalance = priceTicker.ask * assetBalance + baseBalance;
+    const closePrice = priceTicker.close;
+    logger.Info(`Best sell price of ${asset}: ${closePrice} in ${base}`);
+    const totalBalance = closePrice * assetBalance + baseBalance;
     logger.Info(`Total Balance: ${totalBalance}`);
     logger.Trace('End loading data');
 }
